@@ -40,4 +40,16 @@ router.get("/leer", async (req, res) => {
   }
 });
 
+router.get("/renombrar", async(req, res) => {
+    const { nombre, nuevoNombre } = req.query;
+    try {
+        await fs.rename(`uploads/${nombre}`, `uploads/${nuevoNombre}`);
+        res.send(
+          `Archivo ${nombre} fue renombrado con exito por ${nuevoNombre} `
+        );
+    } catch (error) {
+        res.status(500).send("El archivo que consultas no existe");
+    }
+})
+
 export default router;
