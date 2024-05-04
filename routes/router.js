@@ -52,4 +52,14 @@ router.get("/renombrar", async(req, res) => {
     }
 })
 
+router.get("/eliminar", async(req, res) => {
+    const { archivo } = req.query;
+    try {
+        await fs.unlink(`uploads/${archivo}`);
+        res.send(`Archivo ${archivo} fue eliminado con exito`);
+    } catch (error) {
+        res.status(500).send("El archivo que intentas eliminar no existe");
+    }
+})
+
 export default router;
